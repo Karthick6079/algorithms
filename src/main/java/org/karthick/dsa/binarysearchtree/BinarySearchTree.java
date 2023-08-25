@@ -39,22 +39,22 @@ public class BinarySearchTree {
         return search(this.root, key);
     }
 
-    private TreeNode search(TreeNode root, int key) {
-        if (root == null){
+    private TreeNode search(TreeNode node, int key) {
+        if (node == null){
             System.out.printf("\nElement %d not found", key);
             return null;
         }
 
-        if(key < root.data){
-            search(root.left, key);
-        } else if (key > root.data) {
-            search( root.right, key);
+        if(key < node.data){
+            node = search(node.left, key);
+        } else if (key > node.data) {
+            node = search( node.right, key);
         } else {
             System.out.printf("\nElement %d found", key);
-            return root;
+            return node;
         }
 
-        return null;
+        return node;
     }
 
 
@@ -121,8 +121,13 @@ public class BinarySearchTree {
         if(root == null)
             return null;
 
-        if(root.left == null && root.right == null)
+        if(root.left == null && root.right == null){
+            if(this.root == root){
+                this.root = null;
+            }
             return null;
+        }
+
 
         if(key < root.data){
             root.left = delete(root.left, key);

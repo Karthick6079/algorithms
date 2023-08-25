@@ -166,6 +166,81 @@ public class AVLTree {
         }
         return node;
     }
+
+    public void delete(int key){
+        this.root  = delete(this.root, key);
+
+    }
+
+    private TreeNode delete(TreeNode node, int key){
+
+        if(node == null)
+            return null;
+
+        if(node.left == null && node.right == null){
+            if(this.root == node){
+                this.root = null;
+            }
+            return null;
+        }
+
+
+        if(key < node.data){
+            node.left = delete(node.left, key);
+        } else if (key > node.data){
+            node.right = delete(node.right, key);
+        } else {
+            if(height(node.left) > height(node.right)){
+                TreeNode inOrderPredecessor = inOrderPredecessor(node.left);
+                node.data = inOrderPredecessor.data;
+                node.left = delete(node.left, inOrderPredecessor.data);
+            } else{
+                TreeNode inOrderSuccessor = inOrderSuccessor(node.right);
+                node.data = inOrderSuccessor.data;
+                node.right = delete(node.right, inOrderSuccessor.data);
+            }
+        }
+
+        node.height = nodeHeight(node);
+
+        if(balanceFactor(node) == 2 && balanceFactor(node.left) == 1)
+            node = llRotation(node);
+        else if(balanceFactor(node) == 2 && balanceFactor(node.left) == -1)
+            node = lrRotation(node);
+        else if(balanceFactor(node) == 2 && balanceFactor(node.left) == 0)
+            node = llRotation(node);
+        else if(balanceFactor(node) == -2 && balanceFactor(node.right) == -1)
+            node = rrRotation(node);
+        else if(balanceFactor(node) == -2 && balanceFactor(node.right) == 1)
+            node = rLRotation(node);
+        else if(balanceFactor(node) == -2 && balanceFactor(node.right) == 0)
+            node = rLRotation(node);
+
+        return node;
+    }
+
+    private int height(TreeNode root) {
+        if(root == null)
+            return 0;
+
+        int x = height(root.left);
+        int y = height(root.right);
+
+        return x>y ? x+1: y+1;
+    }
+
+    private TreeNode inOrderPredecessor(TreeNode node){
+        while(node != null && node.right != null){
+            node = node.right;
+        }
+        return node;
+    }
+    private TreeNode inOrderSuccessor(TreeNode node){
+        while(node != null && node.left != null){
+            node = node.left;
+        }
+        return node;
+    }
     
     
 

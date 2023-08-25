@@ -93,5 +93,29 @@ class AVLTreeTest {
 
 
 
+    @Test
+    public void testDelete45ElementRightSideLeafNodeAndVerifyHeight(){
+        AVLTree avl = new AVLTree();
+        avl.insert(30);
+        avl.insert(20);
+        avl.insert(40);
+        avl.insert(15);
+        avl.insert(25);
+        avl.insert(45);
+        avl.insert(10);
+
+        // Balance Factor of root should be 0 after LR Rotation
+        avl.inOrderTraversal(avl.getRoot());
+        System.out.println("\nBefore deletion of 45, The height of tree = " + avl.nodeHeight(avl.getRoot()));
+        assertEquals(4, avl.nodeHeight(avl.getRoot()));
+        avl.delete(45);
+        assertNull(avl.search(45));
+        System.out.println("\nAfter deletion of 45, The height of tree = " + avl.nodeHeight(avl.getRoot()));
+        assertEquals(3, avl.nodeHeight(avl.getRoot()));
+
+    }
+
+
+
 
 }

@@ -1,4 +1,4 @@
-package org.karthick.dsa.arrays;
+package org.karthick.dsa.arrays.adt;
 
 public class KvArray {
 
@@ -166,6 +166,147 @@ public class KvArray {
             data[i] = data[i+1];
         }
         data[length - 1]  =  a;
+    }
+
+    public void negativeNumberleftSide(){
+        int i = 0;
+        int j = length - 1;
+
+        while (i < j){
+            while(data[i] < 0)
+                i++;
+            while(data[j] >= 0)
+                j--;
+            if(i<j)
+                swap(i, j);
+        }
+    }
+
+    public boolean isSorted(){
+        for(int i = 0 ; i < length - 1; i++){
+            if(data[i+1] > data[i])
+                return false;
+        }
+        return true;
+    }
+
+    public void insertAtSortedPosition(int element){
+        int i = length - 1;
+
+        while(data[i] > element){
+            data[i+1] = data[i];
+        }
+        data[i+1] = element;
+    }
+
+    public int[] merge(KvArray arg1){
+        int m = length;
+        int n = arg1.length;
+        int[] input = arg1.getData();
+
+        int[] result = new int[m+n];
+        int i = 0, j = 0, k = 0;
+
+        while(i < m && j < n){
+            if(data[i] < input[j]){
+                result[k++] = data[i++];
+            } else {
+                result[k++] = input[j++];
+            }
+        }
+
+        for(; i < m; i++){
+            result[k++] = data[i];
+        }
+
+        for(; j < n; j++){
+            result[k++] = input[j];
+        }
+
+        return result;
+    }
+
+    public int[] union(KvArray arg1){
+        int m = length;
+        int n = arg1.length;
+        int[] input = arg1.getData();
+
+        int[] result = new int[m+n];
+        int i = 0, j = 0, k = 0;
+
+        while(i < m && j < n){
+            if(data[i] < input[j]){
+                result[k++] = data[i++];
+            } else if(data[i] > input[j]){
+                result[k++] = input[j++];
+            } else {
+                result[k++] = input[i];
+                i++;
+                j++;
+            }
+        }
+
+        for(; i < m; i++){
+            result[k++] = data[i];
+        }
+
+        for(; j < n; j++){
+            result[k++] = input[j];
+        }
+        return result;
+    }
+
+
+    public int[] intersection(KvArray arg1){
+        int m = length;
+        int n = arg1.length;
+        int[] input = arg1.getData();
+
+        int[] result = new int[Math.max(m, n)];
+        int i = 0, j = 0, k = 0;
+
+        while(i < m && j < n){
+            if(data[i] < input[j]){
+               i++;
+            } else if(data[i] > input[j]){
+                j++;
+            } else {
+                result[k++] = input[i];
+                i++;
+                j++;
+            }
+        }
+
+        return result;
+    }
+
+
+    public int[] difference(KvArray arg1){
+        int m = length;
+        int n = arg1.length;
+        int[] input = arg1.getData();
+
+        int[] result = new int[m];
+        int i = 0, j = 0, k = 0;
+
+        while(i < m && j < n){
+            if(data[i] < input[j]){
+                result[k++] = data[i];
+                i++;
+            } else if(data[i] > input[j]){
+                j++;
+            } else {
+                i++;
+                j++;
+            }
+        }
+
+        for(; i < m; i++){
+            result[k++] = data[i];
+        }
+
+
+        return result;
     }
 
 }

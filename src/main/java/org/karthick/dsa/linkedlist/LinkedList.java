@@ -37,6 +37,7 @@ public class LinkedList {
         } else if (pos == 0) {
             temp.next = first;
             first = temp;
+            last = temp;
         } else {
             for (int i = 0; (i < pos - 1 && p != null); i++) {
                 p = p.next;
@@ -50,7 +51,7 @@ public class LinkedList {
 
     }
 
-    public void insertAtLast(int value) {
+    public void insert(int value) {
 
         Node temp = new Node(value, null);
 
@@ -270,7 +271,7 @@ public class LinkedList {
     public void reverseLink(){
         Node p = first;
         Node q = null;
-        Node r = null;
+        Node r;
 
         while( p != null){
             r=q;
@@ -289,6 +290,86 @@ public class LinkedList {
         } else{
             first = q;
         }
+    }
+
+    public void concat(LinkedList list){
+        Node p = first;
+        while (p.next != null) {
+            p = p.next;
+        }
+        p.next = list.getFirst();
+        list = null;
+    }
+
+    public void merge(LinkedList list){
+
+        Node p = first;
+        Node q = list.getFirst();
+        Node third = null;
+        Node last = null;
+
+        if(p.data < q.data){
+            third = p;
+            last = p;
+            p = p.next;
+        } else{
+            third = q;
+            last = q;
+            q = q.next;
+        }
+        last.next = null;
+
+        while(p != null && q != null){
+            if(p.data < q.data){
+                last.next = p;
+                last = p;
+                p  = p.next;
+            } else{
+                last.next = q;
+                last = q;
+                q  = q.next;
+            }
+            last.next = null;
+        }
+
+        if(p!= null)
+            last.next = p;
+        if(q!= null)
+            last.next = q;
+
+        first = third;
+
+    }
+
+    public boolean isLoop(){
+        Node q;
+        Node p = q =  first;
+
+        do{
+            p = p.next;
+            q = q.next;
+            q = q!= null ? q.next : null;
+        } while( (p!=null && q != null) && (p != q) );
+
+        return p == q;
+    }
+
+    //Helper method to create loop in linkedList
+    public void makeLoop(int pos){
+
+        Node p = first;
+        Node q = first;
+
+        for (int i = 0; (i < pos - 1 && p != null); i++) {
+            p = p.next;
+        }
+
+        while(q.next != null){
+            q = q.next;
+        }
+
+        q.next = p;
+
     }
 
 

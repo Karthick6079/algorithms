@@ -23,13 +23,13 @@ class LinkedListTest {
     }
 
     @Test
-    public void testInsertAtLast() {
+    public void testinsert() {
         LinkedList list = new LinkedList();
-        list.insertAtLast(10);
-        list.insertAtLast(19);
-        list.insertAtLast(19);
-        list.insertAtLast(19);
-        list.insertAtLast(19);
+        list.insert(10);
+        list.insert(19);
+        list.insert(19);
+        list.insert(19);
+        list.insert(19);
 
         list.display();
     }
@@ -230,6 +230,78 @@ class LinkedListTest {
         System.out.println();
         list.rReverseList(null, list.getFirst());
         list.display();
+    }
+
+    @Test
+    public void testConcatdinationInLinkedList() {
+        LinkedList list = new LinkedList();
+        list.insert( 1);
+        list.insert( 5);
+        list.insert( 5);
+        list.insert( 8);
+        list.insert( 8);
+        list.insert( 9);
+
+        LinkedList list2 = new LinkedList();
+        list2.insert( 1);
+        list2.insert( 5);
+        list2.insert( 5);
+        list2.insert( 8);
+        list2.insert( 8);
+        list2.insert( 9);
+
+        list.display();
+        System.out.println("Concatenate of list\n");
+        list.concat(list2);
+        list.display();
+    }
+
+
+    @Test
+    public void testMergeMethod() {
+        LinkedList list = new LinkedList();
+        list.insert( 2);
+        list.insert( 5);
+        list.insert( 7);
+        list.insert( 9);
+
+
+        LinkedList list2 = new LinkedList();
+        list2.insert( 3);
+        list2.insert( 4);
+        list2.insert( 6);
+        list2.insert( 8);
+        list2.insert( 10);
+        list2.insert( 12);
+
+        System.out.println();
+        list.merge(list2);
+        list.display();
+    }
+
+    @Test
+    public void testLoopDetection() {
+        LinkedList list = new LinkedList();
+        list.insert( 2);
+        list.insert( 5);
+        list.insert( 7);
+        list.insert( 9);
+
+
+        LinkedList list2 = new LinkedList();
+        list2.insert( 3);
+        list2.insert( 4);
+        list2.insert( 6);
+        list2.insert( 8);
+        list2.insert( 10);
+        list2.insert( 12);
+
+        list.merge(list2);
+
+        list.makeLoop(3);
+
+
+        System.out.print("\nLinked List having loop? "+ list.isLoop());
     }
 
 }

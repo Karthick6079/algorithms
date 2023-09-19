@@ -101,5 +101,20 @@ class DoublyLinkedListTest {
 
     }
 
+    @Test
+    public void testReverseOfDLL() {
+        int[] a = {2,5,6,7,8,10,12,15};
+
+        DoublyLinkedList dll = new DoublyLinkedList();
+        dll.create(a,8);
+
+        dll.display();
+
+        dll.reverse();
+
+        dll.display();
+
+    }
+
 
 }

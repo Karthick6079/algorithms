@@ -149,4 +149,25 @@ public class DoublyLinkedList {
         System.out.println();
 
     }
+
+    public void reverse(){
+        if(first == null)
+            return;
+
+        Node p = first, temp;
+
+        while( p != null){
+            temp = p.next;
+            p.next = p.prev;
+            p.prev = temp;
+
+            p = p.prev;
+
+            if(p != null && p.next == null){
+                first = p;
+            }
+
+
+        }
+    }
 }

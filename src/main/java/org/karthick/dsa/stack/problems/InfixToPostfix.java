@@ -43,8 +43,35 @@ public class InfixToPostfix {
         while(!stack.isEmpty() && !stack.peek().getSymbol().equals(")")){
             postfix[j++] = stack.pop().getSymbol().toCharArray()[0];
         }
+        return new String(postfix);
+    }
 
 
+    public static String convert2(String infix){
+        char[] c = infix.toCharArray();
+        char[] postfix = new char[c.length];
+        Stack<Record> stack = new Stack<>();
+//        stack.push(new Record("$",0,0));
+        int i = 0,j = 0;
+        String in;
+
+        while(i < c.length){
+            if(isOperand(String.valueOf(c[i]))){
+                postfix[j++] = c[i++];
+            } else {
+                in = String.valueOf(c[i]);
+                if(stack.isEmpty() || getInStackPrecedence(in) > stack.peek().getInStackPrecedence()){
+                    stack.push(lookUpTable.get(in));
+                    i++;
+                } else {
+                    postfix[j++] = stack.pop().getSymbol().toCharArray()[0];
+                }
+            }
+        }
+
+        while(!stack.isEmpty()){
+            postfix[j++] = stack.pop().getSymbol().toCharArray()[0];
+        }
 
         return new String(postfix);
     }
